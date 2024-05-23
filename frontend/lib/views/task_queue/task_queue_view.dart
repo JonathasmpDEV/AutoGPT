@@ -5,10 +5,13 @@ import 'package:auto_gpt_flutter_client/viewmodels/skill_tree_viewmodel.dart';
 import 'package:auto_gpt_flutter_client/viewmodels/task_queue_viewmodel.dart';
 import 'package:auto_gpt_flutter_client/viewmodels/task_viewmodel.dart';
 import 'package:auto_gpt_flutter_client/views/task_queue/test_suite_button.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TaskQueueView extends StatelessWidget {
+  const TaskQueueView({super.key});
+
   @override
   Widget build(BuildContext context) {
     // TODO: This should be injected instead
@@ -33,7 +36,7 @@ class TaskQueueView extends StatelessWidget {
                 switch (viewModel.benchmarkStatusMap[node]) {
                   case null:
                   case BenchmarkTaskStatus.notStarted:
-                    leadingWidget = CircleAvatar(
+                    leadingWidget = const CircleAvatar(
                       radius: 12,
                       backgroundColor: Colors.grey,
                       child: CircleAvatar(
@@ -43,7 +46,7 @@ class TaskQueueView extends StatelessWidget {
                     );
                     break;
                   case BenchmarkTaskStatus.inProgress:
-                    leadingWidget = SizedBox(
+                    leadingWidget = const SizedBox(
                       width: 24,
                       height: 24,
                       child: CircularProgressIndicator(
@@ -52,7 +55,7 @@ class TaskQueueView extends StatelessWidget {
                     );
                     break;
                   case BenchmarkTaskStatus.success:
-                    leadingWidget = CircleAvatar(
+                    leadingWidget = const CircleAvatar(
                       radius: 12,
                       backgroundColor: Colors.green,
                       child: CircleAvatar(
@@ -62,7 +65,7 @@ class TaskQueueView extends StatelessWidget {
                     );
                     break;
                   case BenchmarkTaskStatus.failure:
-                    leadingWidget = CircleAvatar(
+                    leadingWidget = const CircleAvatar(
                       radius: 12,
                       backgroundColor: Colors.red,
                       child: CircleAvatar(
@@ -74,7 +77,7 @@ class TaskQueueView extends StatelessWidget {
                 }
 
                 return Container(
-                  margin: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                  margin: const EdgeInsets.fromLTRB(20, 5, 20, 5),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(color: Colors.black, width: 1),
@@ -82,9 +85,8 @@ class TaskQueueView extends StatelessWidget {
                   ),
                   child: ListTile(
                     leading: leadingWidget,
-                    title: Center(child: Text('${node.label}')),
-                    subtitle:
-                        Center(child: Text('${node.data.info.description}')),
+                    title: Center(child: Text(node.label)),
+                    subtitle: Center(child: Text(node.data.info.description)),
                   ),
                 );
               },
@@ -93,7 +95,7 @@ class TaskQueueView extends StatelessWidget {
 
           // Buttons at the bottom
           Padding(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(
               children: [
                 // TestSuiteButton
@@ -101,7 +103,9 @@ class TaskQueueView extends StatelessWidget {
                   isDisabled: viewModel.isBenchmarkRunning,
                   selectedOptionString: viewModel.selectedOption.description,
                   onOptionSelected: (selectedOption) {
-                    print('Option Selected: $selectedOption');
+                    if (kDebugMode) {
+                      print('Option Selected: $selectedOption');
+                    }
                     final skillTreeViewModel =
                         Provider.of<SkillTreeViewModel>(context, listen: false);
                     viewModel.updateSelectedNodeHierarchyBasedOnOption(
@@ -111,7 +115,9 @@ class TaskQueueView extends StatelessWidget {
                         skillTreeViewModel.skillTreeEdges);
                   },
                   onPlayPressed: (selectedOption) {
-                    print('Starting benchmark with option: $selectedOption');
+                    if (kDebugMode) {
+                      print('Starting benchmark with option: $selectedOption');
+                    }
                     final chatViewModel =
                         Provider.of<ChatViewModel>(context, listen: false);
                     final taskViewModel =
@@ -120,7 +126,7 @@ class TaskQueueView extends StatelessWidget {
                     viewModel.runBenchmark(chatViewModel, taskViewModel);
                   },
                 ),
-                SizedBox(height: 8), // Gap of 8 points between buttons
+                const SizedBox(height: 8), // Gap of 8 points between buttons
               ],
             ),
           ),

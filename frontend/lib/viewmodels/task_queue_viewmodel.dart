@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_function_literals_in_foreach_calls
+
 import 'package:auto_gpt_flutter_client/models/benchmark/benchmark_run.dart';
 import 'package:auto_gpt_flutter_client/models/benchmark/benchmark_step_request_body.dart';
 import 'package:auto_gpt_flutter_client/models/benchmark/benchmark_task_request_body.dart';
@@ -232,14 +234,16 @@ class TaskQueueViewModel extends ChangeNotifier {
         benchmarkStatusMap[node] = successStatus
             ? BenchmarkTaskStatus.success
             : BenchmarkTaskStatus.failure;
-        await Future.delayed(Duration(seconds: 1));
+        await Future.delayed(const Duration(seconds: 1));
         notifyListeners();
 
         testSuite.tests.add(task);
         // If successStatus is false, break out of the loop
         if (!successStatus) {
-          print(
-              "Benchmark for node ${node.id} failed. Stopping all benchmarks.");
+          if (kDebugMode) {
+            print(
+                "Benchmark for node ${node.id} failed. Stopping all benchmarks.");
+          }
           break;
         }
       }
@@ -247,7 +251,9 @@ class TaskQueueViewModel extends ChangeNotifier {
       // Add the TestSuite to the TaskViewModel
       taskViewModel.addTestSuite(testSuite);
     } catch (e) {
-      print("Error while running benchmark: $e");
+      if (kDebugMode) {
+        print("Error while running benchmark: $e");
+      }
     }
 
     // Reset the benchmark running flag
@@ -267,7 +273,9 @@ class TaskQueueViewModel extends ChangeNotifier {
       run.runDetails.runId = uuid;
 
       await leaderboardService.submitReport(run);
-      print('Completed submission to leaderboard!');
+      if (kDebugMode) {
+        print('Completed submission to leaderboard!');
+      }
     }
 
     // Clear the currentBenchmarkRuns list after submitting to the leaderboard

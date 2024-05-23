@@ -11,10 +11,10 @@ class SkillTreeView extends StatefulWidget {
   const SkillTreeView({Key? key, required this.viewModel}) : super(key: key);
 
   @override
-  _SkillTreeViewState createState() => _SkillTreeViewState();
+  SkillTreeViewState createState() => SkillTreeViewState();
 }
 
-class _SkillTreeViewState extends State<SkillTreeView> {
+class SkillTreeViewState extends State<SkillTreeView> {
   Future<void>? initialization;
 
   @override

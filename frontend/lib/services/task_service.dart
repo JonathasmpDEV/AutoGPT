@@ -3,6 +3,7 @@ import 'package:auto_gpt_flutter_client/models/task_request_body.dart';
 import 'package:auto_gpt_flutter_client/models/task_response.dart';
 import 'package:auto_gpt_flutter_client/services/shared_preferences_service.dart';
 import 'package:auto_gpt_flutter_client/utils/rest_api_utility.dart';
+import 'package:flutter/foundation.dart';
 
 /// Service class for performing task-related operations.
 class TaskService {
@@ -86,13 +87,17 @@ class TaskService {
 
   Future<void> loadDeletedTasks() async {
     _deletedTaskIds = await prefsService.getStringList('deletedTasks') ?? [];
-    print("Deleted tasks fetched successfully!");
+    if (kDebugMode) {
+      print("Deleted tasks fetched successfully!");
+    }
   }
 
   void saveDeletedTask(String taskId) {
     _deletedTaskIds.add(taskId);
     prefsService.setStringList('deletedTasks', _deletedTaskIds);
-    print("Task $taskId deleted successfully!");
+    if (kDebugMode) {
+      print("Task $taskId deleted successfully!");
+    }
   }
 
   bool isTaskDeleted(String taskId) {

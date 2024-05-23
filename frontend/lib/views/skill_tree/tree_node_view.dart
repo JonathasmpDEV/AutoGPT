@@ -1,6 +1,7 @@
 import 'package:auto_gpt_flutter_client/models/skill_tree/skill_tree_node.dart';
 import 'package:auto_gpt_flutter_client/viewmodels/skill_tree_viewmodel.dart';
 import 'package:auto_gpt_flutter_client/viewmodels/task_queue_viewmodel.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,20 +9,22 @@ class TreeNodeView extends StatefulWidget {
   final SkillTreeNode node;
   final bool selected;
 
-  TreeNodeView({required this.node, this.selected = false});
+  const TreeNodeView({super.key, required this.node, this.selected = false});
 
   @override
-  _TreeNodeViewState createState() => _TreeNodeViewState();
+  TreeNodeViewState createState() => TreeNodeViewState();
 }
 
-class _TreeNodeViewState extends State<TreeNodeView> {
+class TreeNodeViewState extends State<TreeNodeView> {
   bool _isHovering = false;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        print('Node ${widget.node.id} clicked');
+        if (kDebugMode) {
+          print('Node ${widget.node.id} clicked');
+        }
         final taskQueueViewModel =
             Provider.of<TaskQueueViewModel>(context, listen: false);
         if (!taskQueueViewModel.isBenchmarkRunning) {
@@ -61,10 +64,10 @@ class _TreeNodeViewState extends State<TreeNodeView> {
                 ),
               ),
             ),
-            SizedBox(height: 4),
+            const SizedBox(height: 4),
             Text(
               widget.node.label,
-              style: TextStyle(fontSize: 12),
+              style: const TextStyle(fontSize: 12),
             ),
           ],
         ),

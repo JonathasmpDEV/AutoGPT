@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:auto_gpt_flutter_client/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -12,10 +14,10 @@ class ContinuousModeDialog extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ContinuousModeDialogState createState() => _ContinuousModeDialogState();
+  ContinuousModeDialogState createState() => ContinuousModeDialogState();
 }
 
-class _ContinuousModeDialogState extends State<ContinuousModeDialog> {
+class ContinuousModeDialogState extends State<ContinuousModeDialog> {
   bool _attemptedToDismiss = false;
   bool _checkboxValue = false;
 

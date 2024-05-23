@@ -2,6 +2,7 @@ import 'package:auto_gpt_flutter_client/models/test_suite.dart';
 import 'package:auto_gpt_flutter_client/viewmodels/chat_viewmodel.dart';
 import 'package:auto_gpt_flutter_client/viewmodels/task_viewmodel.dart';
 import 'package:auto_gpt_flutter_client/views/task/task_list_tile.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,10 +16,10 @@ class TestSuiteDetailView extends StatefulWidget {
       : super(key: key);
 
   @override
-  _TestSuiteDetailViewState createState() => _TestSuiteDetailViewState();
+  TestSuiteDetailViewState createState() => TestSuiteDetailViewState();
 }
 
-class _TestSuiteDetailViewState extends State<TestSuiteDetailView> {
+class TestSuiteDetailViewState extends State<TestSuiteDetailView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,9 +27,9 @@ class _TestSuiteDetailViewState extends State<TestSuiteDetailView> {
       appBar: AppBar(
         backgroundColor: Colors.grey,
         foregroundColor: Colors.black,
-        title: Text("${widget.testSuite.timestamp}"),
+        title: Text(widget.testSuite.timestamp),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () => widget.viewModel.deselectTestSuite(),
         ),
       ),
@@ -53,7 +54,9 @@ class _TestSuiteDetailViewState extends State<TestSuiteDetailView> {
                         Provider.of<ChatViewModel>(context, listen: false);
                     chatViewModel.setCurrentTaskId(task.id);
 
-                    print('Task ${task.title} tapped');
+                    if (kDebugMode) {
+                      print('Task ${task.title} tapped');
+                    }
                   },
                   onDelete: () {
                     // Delete the task in TaskViewModel
@@ -65,7 +68,9 @@ class _TestSuiteDetailViewState extends State<TestSuiteDetailView> {
                       chatViewModel.clearCurrentTaskAndChats();
                     }
 
-                    print('Task ${task.title} delete button tapped');
+                    if (kDebugMode) {
+                      print('Task ${task.title} delete button tapped');
+                    }
                   },
                   selected: task.id == widget.viewModel.selectedTask?.id,
                 );

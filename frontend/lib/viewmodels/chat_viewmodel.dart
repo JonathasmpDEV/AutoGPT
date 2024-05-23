@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_is_empty
+
 import 'package:auto_gpt_flutter_client/models/step.dart';
 import 'package:auto_gpt_flutter_client/models/step_request_body.dart';
 import 'package:auto_gpt_flutter_client/services/shared_preferences_service.dart';
@@ -48,7 +50,9 @@ class ChatViewModel with ChangeNotifier {
   /// Fetches chats from the data source for a specific task.
   void fetchChatsForTask() async {
     if (_currentTaskId == null) {
-      print("Error: Task ID is not set.");
+      if (kDebugMode) {
+        print("Error: Task ID is not set.");
+      }
       return;
     }
     try {
@@ -102,10 +106,14 @@ class ChatViewModel with ChangeNotifier {
       // Notify listeners to rebuild UI
       notifyListeners();
 
-      print(
-          "Chats (and steps) fetched successfully for task ID: $_currentTaskId");
+      if (kDebugMode) {
+        print(
+            "Chats (and steps) fetched successfully for task ID: $_currentTaskId");
+      }
     } catch (error) {
-      print("Error fetching chats: $error");
+      if (kDebugMode) {
+        print("Error fetching chats: $error");
+      }
       // TODO: Handle additional error scenarios or log them as required
     }
   }
@@ -114,7 +122,9 @@ class ChatViewModel with ChangeNotifier {
   void sendChatMessage(String? message,
       {required int continuousModeSteps, int currentStep = 1}) async {
     if (_currentTaskId == null) {
-      print("Error: Task ID is not set.");
+      if (kDebugMode) {
+        print("Error: Task ID is not set.");
+      }
       return;
     }
     _isWaitingForAgentResponse = true;
@@ -163,7 +173,9 @@ class ChatViewModel with ChangeNotifier {
       notifyListeners();
 
       if (_isContinuousMode && !executedStep.isLast) {
-        print("Continuous Mode: Step $currentStep of $continuousModeSteps");
+        if (kDebugMode) {
+          print("Continuous Mode: Step $currentStep of $continuousModeSteps");
+        }
         if (currentStep < continuousModeSteps) {
           sendChatMessage(null,
               continuousModeSteps: continuousModeSteps,
@@ -173,7 +185,9 @@ class ChatViewModel with ChangeNotifier {
         }
       }
 
-      print("Chats added for task ID: $_currentTaskId");
+      if (kDebugMode) {
+        print("Chats added for task ID: $_currentTaskId");
+      }
     } catch (e) {
       // Remove the temporary message in case of an error
       removeTemporaryMessage();
@@ -214,9 +228,13 @@ class ChatViewModel with ChangeNotifier {
       // Call the downloadArtifact method from the ChatService class
       await _chatService.downloadArtifact(taskId, artifactId);
 
-      print("Artifact $artifactId downloaded successfully for task $taskId!");
+      if (kDebugMode) {
+        print("Artifact $artifactId downloaded successfully for task $taskId!");
+      }
     } catch (error) {
-      print("Error downloading artifact: $error");
+      if (kDebugMode) {
+        print("Error downloading artifact: $error");
+      }
       // TODO: Handle the error appropriately, perhaps notify the user
     }
   }

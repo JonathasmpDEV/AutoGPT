@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -5,13 +6,17 @@ class UriUtility {
   static bool isURL(String url) {
     // Validate if the URL string is empty, or contains spaces or invalid characters
     if (url.isEmpty || RegExp(r'[\s<>]').hasMatch(url)) {
-      print('URL is either empty or contains spaces/invalid characters.');
+      if (kDebugMode) {
+        print('URL is either empty or contains spaces/invalid characters.');
+      }
       return false;
     }
 
     // Check for 'mailto:' at the start of the URL
     if (url.startsWith('mailto:')) {
-      print('URL starts with "mailto:".');
+      if (kDebugMode) {
+        print('URL starts with "mailto:".');
+      }
       return false;
     }
 
@@ -20,13 +25,17 @@ class UriUtility {
     try {
       uri = Uri.parse(url);
     } catch (e) {
-      print('URL parsing failed: $e');
+      if (kDebugMode) {
+        print('URL parsing failed: $e');
+      }
       return false;
     }
 
     // Validate the URL has a scheme (protocol) and host
     if (uri.scheme.isEmpty || uri.host.isEmpty) {
-      print('URL is missing a scheme (protocol) or host.');
+      if (kDebugMode) {
+        print('URL is missing a scheme (protocol) or host.');
+      }
       return false;
     }
 
@@ -34,17 +43,23 @@ class UriUtility {
     if (uri.hasAuthority &&
         uri.userInfo.contains(':') &&
         uri.userInfo.split(':').length > 2) {
-      print('URL contains invalid user info.');
+      if (kDebugMode) {
+        print('URL contains invalid user info.');
+      }
       return false;
     }
 
     // Validate the port number if exists
     if (uri.hasPort && (uri.port <= 0 || uri.port > 65535)) {
-      print('URL contains an invalid port number.');
+      if (kDebugMode) {
+        print('URL contains an invalid port number.');
+      }
       return false;
     }
 
-    print('URL is valid.');
+    if (kDebugMode) {
+      print('URL is valid.');
+    }
     return true;
   }
 

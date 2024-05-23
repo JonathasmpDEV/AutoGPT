@@ -45,7 +45,9 @@ class TaskViewModel with ChangeNotifier {
       fetchAndCombineData();
 
       final taskId = newTaskObject.id;
-      print("Task $taskId created successfully!");
+      if (kDebugMode) {
+        print("Task $taskId created successfully!");
+      }
 
       return newTaskObject.id;
     } catch (e) {
@@ -62,7 +64,9 @@ class TaskViewModel with ChangeNotifier {
     _taskService.saveDeletedTask(taskId);
     _tasks.removeWhere((task) => task.id == taskId);
     notifyListeners();
-    print("Task $taskId deleted successfully!");
+    if (kDebugMode) {
+      print("Task $taskId deleted successfully!");
+    }
   }
 
   /// Fetches tasks from the data source.
@@ -76,9 +80,13 @@ class TaskViewModel with ChangeNotifier {
       _tasks = _tasks.reversed.toList();
 
       notifyListeners();
-      print("Tasks fetched successfully!");
+      if (kDebugMode) {
+        print("Tasks fetched successfully!");
+      }
     } catch (error) {
-      print("Error fetching tasks: $error");
+      if (kDebugMode) {
+        print("Error fetching tasks: $error");
+      }
     }
   }
 
@@ -88,12 +96,16 @@ class TaskViewModel with ChangeNotifier {
 
     if (task != null) {
       _selectedTask = task;
-      print("Selected task with ID: ${task.id} and Title: ${task.title}");
+      if (kDebugMode) {
+        print("Selected task with ID: ${task.id} and Title: ${task.title}");
+      }
       notifyListeners(); // Notify listeners to rebuild UI
     } else {
       final errorMessage =
           "Error: Attempted to select a task with ID: $id that does not exist in the data source.";
-      print(errorMessage);
+      if (kDebugMode) {
+        print(errorMessage);
+      }
       throw ArgumentError(errorMessage);
     }
   }
@@ -101,7 +113,9 @@ class TaskViewModel with ChangeNotifier {
   /// Deselects the currently selected task.
   void deselectTask() {
     _selectedTask = null;
-    print("Deselected the current task.");
+    if (kDebugMode) {
+      print("Deselected the current task.");
+    }
     notifyListeners(); // Notify listeners to rebuild UI
   }
 
@@ -127,7 +141,9 @@ class TaskViewModel with ChangeNotifier {
     _testSuites.add(testSuite);
     await _saveTestSuitesToPrefs();
     notifyListeners();
-    print("Test suite successfully added!");
+    if (kDebugMode) {
+      print("Test suite successfully added!");
+    }
   }
 
   // Fetch test suites from SharedPreferences
@@ -205,6 +221,8 @@ class TaskViewModel with ChangeNotifier {
 
     // After processing all tasks, call notifyListeners to rebuild the widgets that depend on this data.
     notifyListeners();
-    print("Combined tasks and test suites successfully!");
+    if (kDebugMode) {
+      print("Combined tasks and test suites successfully!");
+    }
   }
 }

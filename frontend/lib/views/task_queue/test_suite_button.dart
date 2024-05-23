@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:auto_gpt_flutter_client/constants/app_colors.dart';
 import 'package:auto_gpt_flutter_client/models/test_option.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,7 @@ class TestSuiteButton extends StatefulWidget {
   String selectedOptionString;
 
   TestSuiteButton({
+    super.key,
     this.isDisabled = false,
     required this.onOptionSelected,
     required this.onPlayPressed,
@@ -16,10 +19,10 @@ class TestSuiteButton extends StatefulWidget {
   });
 
   @override
-  _TestSuiteButtonState createState() => _TestSuiteButtonState();
+  TestSuiteButtonState createState() => TestSuiteButtonState();
 }
 
-class _TestSuiteButtonState extends State<TestSuiteButton> {
+class TestSuiteButtonState extends State<TestSuiteButton> {
   @override
   Widget build(BuildContext context) {
     return Row(

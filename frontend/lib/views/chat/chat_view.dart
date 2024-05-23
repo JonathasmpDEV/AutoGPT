@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:auto_gpt_flutter_client/models/message_type.dart';
 import 'package:auto_gpt_flutter_client/viewmodels/settings_viewmodel.dart';
 import 'package:auto_gpt_flutter_client/viewmodels/task_queue_viewmodel.dart';
@@ -18,10 +20,10 @@ class ChatView extends StatefulWidget {
   const ChatView({Key? key, required this.viewModel}) : super(key: key);
 
   @override
-  _ChatViewState createState() => _ChatViewState();
+  ChatViewState createState() => ChatViewState();
 }
 
-class _ChatViewState extends State<ChatView> {
+class ChatViewState extends State<ChatView> {
   final ScrollController _scrollController = ScrollController();
   bool _isAtBottom = true;
 

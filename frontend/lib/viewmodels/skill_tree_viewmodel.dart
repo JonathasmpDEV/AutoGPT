@@ -53,7 +53,9 @@ class SkillTreeViewModel extends ChangeNotifier {
 
       return Future.value(); // Explicitly return a completed Future
     } catch (e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -80,7 +82,9 @@ class SkillTreeViewModel extends ChangeNotifier {
       // Find the node in the list where the ID matches
       return _skillTreeNodes.firstWhere((node) => node.id == nodeId);
     } catch (e) {
-      print("Node with ID $nodeId not found: $e");
+      if (kDebugMode) {
+        print("Node with ID $nodeId not found: $e");
+      }
       return null;
     }
   }

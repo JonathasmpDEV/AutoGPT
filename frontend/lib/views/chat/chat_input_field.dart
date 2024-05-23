@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import, use_build_context_synchronously
+
 import 'package:auto_gpt_flutter_client/viewmodels/chat_viewmodel.dart';
 import 'package:auto_gpt_flutter_client/views/chat/continuous_mode_dialog.dart';
 import 'package:flutter/material.dart';
@@ -20,10 +22,10 @@ class ChatInputField extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _ChatInputFieldState createState() => _ChatInputFieldState();
+  ChatInputFieldState createState() => ChatInputFieldState();
 }
 
-class _ChatInputFieldState extends State<ChatInputField> {
+class ChatInputFieldState extends State<ChatInputField> {
   // Controller for the TextField to manage its content
   final TextEditingController _controller = TextEditingController();
   final FocusNode _focusNode = FocusNode();

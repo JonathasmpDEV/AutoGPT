@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously, unused_import
+
 import 'package:auto_gpt_flutter_client/constants/app_colors.dart';
 import 'package:auto_gpt_flutter_client/utils/uri_utility.dart';
 import 'package:auto_gpt_flutter_client/viewmodels/task_queue_viewmodel.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,11 +19,11 @@ class LeaderboardSubmissionDialog extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _LeaderboardSubmissionDialogState createState() =>
-      _LeaderboardSubmissionDialogState();
+  LeaderboardSubmissionDialogState createState() =>
+      LeaderboardSubmissionDialogState();
 }
 
-class _LeaderboardSubmissionDialogState
+class LeaderboardSubmissionDialogState
     extends State<LeaderboardSubmissionDialog> {
   final TextEditingController _teamNameController = TextEditingController();
   final TextEditingController _repoUrlController = TextEditingController();
@@ -78,7 +81,9 @@ class _LeaderboardSubmissionDialogState
     }
 
     if (isValid) {
-      print('Valid leaderboard submission parameters!');
+      if (kDebugMode) {
+        print('Valid leaderboard submission parameters!');
+      }
       await _saveToSharedPreferences();
       widget.onSubmit?.call(_teamNameController.text, _repoUrlController.text,
           _commitShaController.text);
@@ -199,7 +204,7 @@ class _LeaderboardSubmissionDialogState
                     ),
                   ),
                 ),
-                SizedBox(width: 8),
+                const SizedBox(width: 8),
                 // Submit Button
                 SizedBox(
                   width: 106,

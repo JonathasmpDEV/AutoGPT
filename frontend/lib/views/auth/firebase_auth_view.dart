@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_gpt_flutter_client/services/auth_service.dart';
 
@@ -18,8 +19,10 @@ class FirebaseAuthView extends StatelessWidget {
               onPressed: () async {
                 final user = await _authService.signInWithGoogle();
                 if (user != null) {
-                  print(
-                      "Successfully signed in with Google: ${user.user?.displayName}");
+                  if (kDebugMode) {
+                    print(
+                        "Successfully signed in with Google: ${user.user?.displayName}");
+                  }
                 }
               },
               style: OutlinedButton.styleFrom(
@@ -43,8 +46,10 @@ class FirebaseAuthView extends StatelessWidget {
               onPressed: () async {
                 final user = await _authService.signInWithGitHub();
                 if (user != null) {
-                  print(
-                      "Successfully signed in with GitHub: ${user.user?.displayName}");
+                  if (kDebugMode) {
+                    print(
+                        "Successfully signed in with GitHub: ${user.user?.displayName}");
+                  }
                 }
               },
               style: OutlinedButton.styleFrom(

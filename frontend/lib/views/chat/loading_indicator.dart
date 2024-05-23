@@ -7,10 +7,10 @@ class LoadingIndicator extends StatefulWidget {
   const LoadingIndicator({Key? key, required this.isLoading}) : super(key: key);
 
   @override
-  _LoadingIndicatorState createState() => _LoadingIndicatorState();
+  LoadingIndicatorState createState() => LoadingIndicatorState();
 }
 
-class _LoadingIndicatorState extends State<LoadingIndicator>
+class LoadingIndicatorState extends State<LoadingIndicator>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
 

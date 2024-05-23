@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_adjacent_string_concatenation
+
 import 'dart:convert';
 
 import 'package:auto_gpt_flutter_client/models/chat.dart';
@@ -16,10 +18,10 @@ class AgentMessageTile extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  _AgentMessageTileState createState() => _AgentMessageTileState();
+  AgentMessageTileState createState() => AgentMessageTileState();
 }
 
-class _AgentMessageTileState extends State<AgentMessageTile> {
+class AgentMessageTileState extends State<AgentMessageTile> {
   bool isExpanded = false;
 
   @override
@@ -89,7 +91,7 @@ class _AgentMessageTileState extends State<AgentMessageTile> {
                                     styleSheet: MarkdownStyleSheet.fromTheme(
                                             Theme.of(context))
                                         .copyWith(
-                                      blockquoteDecoration: BoxDecoration(
+                                      blockquoteDecoration: const BoxDecoration(
                                         color: Colors
                                             .black, // Background color for blockquotes
                                         border: Border(

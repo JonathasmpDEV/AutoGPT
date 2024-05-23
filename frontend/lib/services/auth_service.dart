@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService {
@@ -23,9 +24,12 @@ class AuthService {
         return await _auth.signInWithCredential(credential);
       }
     } catch (e) {
-      print("Error during Google Sign-In: $e");
+      if (kDebugMode) {
+        print("Error during Google Sign-In: $e");
+      }
       return null;
     }
+    return null;
   }
 
 // Sign in with GitHub using redirect
@@ -34,7 +38,9 @@ class AuthService {
       final GithubAuthProvider provider = GithubAuthProvider();
       return await _auth.signInWithPopup(provider);
     } catch (e) {
-      print("Error during GitHub Sign-In: $e");
+      if (kDebugMode) {
+        print("Error during GitHub Sign-In: $e");
+      }
       return null;
     }
   }

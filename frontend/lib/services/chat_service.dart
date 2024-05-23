@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable, avoid_web_libraries_in_flutter
+
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:auto_gpt_flutter_client/models/step_request_body.dart';
